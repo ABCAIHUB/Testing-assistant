@@ -1,0 +1,6 @@
+# Local / generated artifacts — do not commit secrets or resolved caches
+.env
+tests/.manual-resolved.yaml
+tests/.manual-from-file.yaml
+tests/.generated-batch-*.yaml
+output.json

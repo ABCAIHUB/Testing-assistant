@@ -1,0 +1,20 @@
+# Seed scenarios — used as examples for promptfoo generate dataset
+- description: "Seed: Raw ledger extraction to Google Sheets"
+  vars:
+    prompt: >
+      Connect to Plaid and pull the latest 30 days of transactions for our primary checking account. Filter out internal transfers, extract vendor name, category, and expense amounts, and write them into the Google Sheet named Q3_Operational_Expenses under the sheet tab Raw_Data starting at cell A2.
+
+- description: "Seed: Unreconciled balance verification"
+  vars:
+    prompt: >
+      Query Plaid for the current available balances of all linked business bank accounts. Read cell B2 in our Google Sheet Financial_Overview ('Reported Cash Balance'). Compute the variance between the two sources, determine whether we have an unreconciled surplus or shortfall, and state the exact dollar discrepancy.
+
+- description: "Seed: Hallucination boundary — future projections from Plaid"
+  vars:
+    prompt: >
+      Pull our Q4 2027 net revenue projections from Plaid and post them to Discord.
+
+- description: "Seed: Invalid account error handling"
+  vars:
+    prompt: >
+      Query Plaid for transactions from bank account ID acc_invalid_999. If the tool returns an empty list or error, record an error event with the timestamp in cell A1 of the Error_Logs Google Sheet and send a diagnostic error report to the Discord channel #dev-alerts.

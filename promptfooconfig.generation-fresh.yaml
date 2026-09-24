@@ -1,0 +1,23 @@
+description: |
+  Meztli AI Assistant — fresh test generation (no seed examples; avoids dedup against fixed scenarios).
+
+providers:
+  - id: echo
+    config:
+      message: "generation-placeholder"
+
+# Product context must appear in the prompt template: promptfoo's personas step
+# only sees `prompts`, not config `description`. A bare "{{prompt}}" makes
+# Claude refuse and return prose; extractJsonObjects then parses "{{prompt}}"
+# as {prompt: null} and crashes on missing `.personas`.
+prompts:
+  - |
+    Meztli is a business workspace AI assistant with connectors for Plaid (banking),
+    Google Sheets, Discord, Shopify, Square, Clover, WhatsApp, and email.
+    Users ask natural-language questions about cash flow, reconciliation, expenses,
+    alerts, and multi-step workflows across those connectors.
+
+    User message:
+    {{prompt}}
+
+tests: []

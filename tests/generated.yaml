@@ -1,0 +1,70 @@
+- vars:
+    prompt: >-
+      Check our current Plaid balance across all linked accounts and compare
+      it to cell C4 labeled 'Expected Cash on Hand' in the Google Sheet named
+      Weekly_Cashflow. Tell me if we're over or under, and by how much.
+- vars:
+    prompt: >-
+      Pull all Shopify orders from the last 7 days, sum the total revenue,
+      then write that number into cell B5 of the Google Sheet called
+      Sales_Tracker under the tab This_Week. Then post a summary message to
+      the Discord channel #daily-revenue.
+- vars:
+    prompt: >-
+      Fetch the last 60 days of Plaid transactions for our business checking
+      account, categorize them by vendor into Payroll, Supplies, and
+      Utilities, and append each row to the Google Sheet Expense_Breakdown
+      under the tab October_November starting at A3.
+- vars:
+    prompt: >-
+      Pull today's Square in-person sales total and today's Shopify online
+      sales total. Add them together and send a combined daily revenue summary
+      via WhatsApp to my business number.
+- vars:
+    prompt: >-
+      Read the value in cell D10 labeled 'Monthly Budget Cap' from the Google
+      Sheet named Budget_2024. Then pull last month's total expenses from
+      Plaid and tell me if we exceeded the budget and by what dollar amount.
+- vars:
+    prompt: >-
+      Try to pull transactions from Plaid account ID acc_deleted_007. If you
+      get an error or empty result, write the failure timestamp and error
+      message into cell A1 of the sheet Error_Log in the Google Sheet named
+      System_Alerts, then notify #ops-alerts on Discord.
+- vars:
+    prompt: >-
+      Generate a 90-day forward revenue forecast using Plaid transaction
+      history and post the projections to the Google Sheet named
+      Future_Projections under tab Q1_2028.
+- vars:
+    prompt: >-
+      Pull all Clover transactions from the past 14 days, filter for amounts
+      over $500, extract merchant name and date, and email me a formatted
+      summary report at my business email address.
+- vars:
+    prompt: >-
+      Check Plaid for any transactions over $500 from the last 7 days across
+      all linked accounts. For each one, look up the vendor name in column A
+      of my Google Sheet Vendor_Whitelist. If the vendor is not listed, send a
+      WhatsApp message to my phone flagging it as an unrecognized large
+      expense with the amount and date.
+- vars:
+    prompt: >-
+      Read the values in column C of the Google Sheet Monthly_Budget tab
+      September under the header 'Projected Expenses.' Then pull actual
+      September spending totals from Plaid and calculate the variance for each
+      category. Write the results into column D of the same sheet labeled
+      'Actual vs Budget.'
+- vars:
+    prompt: >-
+      Pull all Shopify orders from the last 14 days and all Square
+      transactions from the same period. Compare total revenue reported by
+      each platform against Plaid deposits for the matching date range. Post a
+      reconciliation summary to Discord channel #finance-team noting any
+      discrepancy greater than $100.
+- vars:
+    prompt: >-
+      Try to read tab Q5_Forecast from the Google Sheet Annual_Projections. If
+      that tab does not exist, send an email to admin@mybusiness.com with
+      subject 'Missing Sheet Alert' explaining the tab was not found, and log
+      the error with a timestamp in cell A1 of the sheet named Error_Tracker.

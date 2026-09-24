@@ -1,0 +1,6 @@
+id: anthropic:messages:claude-sonnet-4-6
+config:
+  # Default promptfoo synthesis uses max_tokens=1024, which truncates JSON for 10+ tests
+  max_tokens: 8192
+  # Slightly lower than 0.7: still varied, but more reliable JSON for personas/vars steps
+  temperature: 0.5

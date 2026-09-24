@@ -1,0 +1,21 @@
+# Manual eval prompts for Meztli.
+#
+# Used when prompt mode is `manual` or `both` (see README).
+# Format: promptfoo test YAML — each entry needs vars.prompt
+#
+# Tip: you can also use a plain .txt file (one prompt per line, or blank-line /
+# --- separated blocks) via:
+#   npm run eval:manual -- --manual-file path/to/prompts.txt
+# or pass inline:
+#   npm run eval:manual -- --prompt "Your prompt here"
+
+- description: "Manual: Plaid balance check"
+  vars:
+    prompt: >
+      What is the available balance on our primary Plaid-linked checking account?
+
+- description: "Manual: Sheets + Discord summary"
+  vars:
+    prompt: >
+      Read this week's totals from the Google Sheet named Weekly_Cash_Report,
+      then post a short summary to the Discord channel #finance-ops.

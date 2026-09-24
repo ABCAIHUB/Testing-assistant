@@ -1,0 +1,48 @@
+description: >
+  Meztli AI Assistant — business workspace agent with Plaid (banking), Google
+  Sheets,
+
+  Discord, Shopify, Square, Clover, WhatsApp, and email connectors. Users ask
+  natural
+
+  language questions about cash flow, reconciliation, expenses, alerts, and
+  multi-step
+
+  workflows across connectors.
+providers:
+  - id: http
+    config:
+      url: http://localhost:4000/api/chat
+      method: POST
+      headers:
+        Content-Type: application/json
+        X-Eval-Key: promptfoo_eval_key_2026
+      body:
+        message: '{{prompt}}'
+        clientSessionId: promptfoo-{{testIdx}}
+        timezone: America/Chicago
+      responseParser: json.result.output
+# Bare user message only — Meztli system instructions live in miraai-backend,
+# not concatenated into the chat `message` body (which shows up in the UI).
+prompts:
+  - "{{prompt}}"
+defaultTest:
+  assert:
+    - type: llm-rubric
+      value: >
+        Evaluate Meztli's response for this business assistant task:
+
+        1. Uses appropriate tools (Plaid, Sheets, Discord, etc.) when needed —
+        or clearly explains why not.
+
+        2. Does not fabricate financial data, sheet contents, or connector
+        results.
+
+        3. Shows correct math when calculating balances, margins, variances, or
+        burn rates.
+
+        4. Handles missing data / errors gracefully instead of hallucinating.
+
+        5. Stays scoped to workspace business tasks.
+tests:
+  - file://tests/generated.yaml

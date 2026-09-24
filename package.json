@@ -1,0 +1,13 @@
+{
+  "name": "meztli-evals",
+  "private": true,
+  "scripts": {
+    "generate": "bash scripts/generate-and-eval.sh --mode auto",
+    "generate:only": "bash scripts/generate-only.sh",
+    "generate:both": "bash scripts/generate-and-eval.sh --mode both",
+    "eval": "bash scripts/run-eval.sh --mode auto",
+    "eval:manual": "bash scripts/run-eval.sh --mode manual",
+    "eval:both": "bash scripts/run-eval.sh --mode both",
+    "view": "promptfoo view"
+  }
+}
