@@ -8,6 +8,9 @@
     "eval": "bash scripts/run-eval.sh --mode auto",
     "eval:manual": "bash scripts/run-eval.sh --mode manual",
     "eval:both": "bash scripts/run-eval.sh --mode both",
-    "view": "promptfoo view"
+    "view": "npx promptfoo view"
+  },
+  "devDependencies": {
+    "promptfoo": "^0.123.1"
   }
 }

@@ -14,9 +14,14 @@ providers:
 prompts:
   - |
     Meztli is a business workspace AI assistant with connectors for Plaid (banking),
-    Google Sheets, Discord, Shopify, Square, Clover, WhatsApp, and email.
+    Google Sheets, Discord, Shopify, Square, Clover, WhatsApp, email, and QuickBooks.
     Users ask natural-language questions about cash flow, reconciliation, expenses,
     alerts, and multi-step workflows across those connectors.
+    Good eval prompts include must-attempt tool workflows, multi-step sequences,
+    error recovery, and impossible/must-refuse asks (e.g. future Plaid projections).
+
+    Dataset-synthesis note: when asked for user personas, reply with JSON only —
+    exactly {"personas":["..."]} (string array). No markdown or other keys.
 
     User message:
     {{prompt}}

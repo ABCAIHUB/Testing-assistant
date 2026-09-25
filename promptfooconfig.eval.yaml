@@ -1,14 +1,8 @@
 description: >
   Meztli AI Assistant — business workspace agent with Plaid (banking), Google
-  Sheets,
-
-  Discord, Shopify, Square, Clover, WhatsApp, and email connectors. Users ask
-  natural
-
-  language questions about cash flow, reconciliation, expenses, alerts, and
-  multi-step
-
-  workflows across connectors.
+  Sheets, Discord, Shopify, Square, Clover, WhatsApp, email, and QuickBooks
+  connectors. Users ask natural-language questions about cash flow,
+  reconciliation, expenses, alerts, and multi-step workflows across connectors.
 providers:
   - id: http
     config:
@@ -26,23 +20,7 @@ providers:
 # not concatenated into the chat `message` body (which shows up in the UI).
 prompts:
   - "{{prompt}}"
-defaultTest:
-  assert:
-    - type: llm-rubric
-      value: >
-        Evaluate Meztli's response for this business assistant task:
-
-        1. Uses appropriate tools (Plaid, Sheets, Discord, etc.) when needed —
-        or clearly explains why not.
-
-        2. Does not fabricate financial data, sheet contents, or connector
-        results.
-
-        3. Shows correct math when calculating balances, margins, variances, or
-        burn rates.
-
-        4. Handles missing data / errors gracefully instead of hallucinating.
-
-        5. Stays scoped to workspace business tasks.
+# Shared multi-dimension rubrics (see asserts/default.yaml + README).
+defaultTest: file://asserts/default.yaml
 tests:
   - file://tests/generated.yaml

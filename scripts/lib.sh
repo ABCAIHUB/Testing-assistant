@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 # Shared helpers for meztli-evals scripts
 
+# Prefer local promptfoo (devDependency) over any global install (e.g. 0.122.x).
+_MEZTLI_EVAL_LIB_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+_MEZTLI_EVAL_ROOT="$(cd "$_MEZTLI_EVAL_LIB_DIR/.." && pwd)"
+if [[ -x "$_MEZTLI_EVAL_ROOT/node_modules/.bin/promptfoo" ]]; then
+  PROMPTFOO_BIN="${PROMPTFOO_BIN:-$_MEZTLI_EVAL_ROOT/node_modules/.bin/promptfoo}"
+  export PATH="$_MEZTLI_EVAL_ROOT/node_modules/.bin:$PATH"
+else
+  PROMPTFOO_BIN="${PROMPTFOO_BIN:-promptfoo}"
+fi
+
 # Prompt source mode: auto | manual | both
 # - auto:   AI-generated tests only (tests/generated.yaml)
 # - manual: user-supplied tests only (tests/manual.yaml or --prompt / --manual-file)
@@ -253,7 +263,7 @@ build_eval_config() {
 # Promptfoo synthesis defaults to max_tokens=1024, which truncates JSON for 10+ tests.
 DEFAULT_SYNTHESIS_PROVIDER="${MEZTLI_EVAL_GENERATION_PROVIDER:-file://providers/dataset-synthesis.yaml}"
 # Passed only to the test-case step (not personas). Keep vars-shaped; do not mention personas.
-GENERATION_VARS_HINT='For each test case return JSON only as {"vars":[{"prompt":"..."},...]}. Keep each prompt under 120 words. Do not invent other keys.'
+GENERATION_VARS_HINT='For each test case return JSON only as {"vars":[{"prompt":"..."},...]}. Keep each prompt under 120 words. Do not invent other keys. Respond with that JSON object only — no markdown fences or prose.'
 
 # Trim whitespace from ANTHROPIC_API_KEY after sourcing .env (never print the value).
 normalize_anthropic_api_key() {
@@ -310,14 +320,14 @@ promptfoo_generate_dataset() {
   local num_personas="$4"
   local cases_per_persona="$5"
   local instructions="$6"
-  local max_attempts="${MEZTLI_EVAL_GENERATE_RETRIES:-3}"
+  local max_attempts="${MEZTLI_EVAL_GENERATE_RETRIES:-5}"
   local attempt=1
   local err_log
   err_log="$(mktemp -t meztli-generate.XXXXXX)"
 
   while [[ "$attempt" -le "$max_attempts" ]]; do
     set +e
-    promptfoo generate dataset \
+    "$PROMPTFOO_BIN" generate dataset \
       -c "$config" \
       -o "$out" \
       --provider "$provider" \

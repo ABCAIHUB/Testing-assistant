@@ -33,6 +33,6 @@ prepare_manual_if_needed "$MODE" || exit 1
 build_eval_config promptfooconfig.eval.yaml "$MODE" tests/generated.yaml "$RESOLVED_MANUAL_FILE"
 
 echo "==> Running evaluation against http://localhost:4000/api/chat ..."
-promptfoo eval -c promptfooconfig.eval.yaml --output output.json
+"$PROMPTFOO_BIN" eval -c promptfooconfig.eval.yaml --output output.json
 
 echo "==> Done. View results: npm run view"

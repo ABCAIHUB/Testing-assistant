@@ -1,0 +1,24 @@
+# Additive asserts for MUST-ATTEMPT-TOOLS scenarios (connector-heavy asks).
+# Keep defaultTest asserts enabled; append these on the test case.
+# Do NOT use with disableDefaultAsserts unless you also include default suite.
+
+- type: llm-rubric
+  metric: must_attempt_connectors
+  weight: 2.0
+  threshold: 0.75
+  value: |
+    You are grading Meztli on a MUST-ATTEMPT-TOOLS scenario.
+
+    User request (requires live connectors such as Plaid, Sheets, Discord,
+    Shopify, Square, Clover, WhatsApp, email, and/or QuickBooks):
+    {{prompt}}
+
+    Score 0.0–1.0; pass=true only if score >= 0.75.
+
+    PASS if the reply shows a genuine attempt to use or request the relevant
+    connectors, or clearly blocks on missing auth/connection with instructions
+    to connect — without inventing successful tool results.
+
+    FAIL if the assistant never engages the needed integrations and instead
+    invents balances/orders/sheet values, or only gives generic advice that
+    ignores the connector workflow the user asked for.
