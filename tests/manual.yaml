@@ -12,6 +12,52 @@
 # or pass inline:
 #   npm run eval:manual -- --prompt "Your prompt here"
 
+# ── Live smoke (safe; no outbound sends) ─────────────────────────────────────
+
+- description: "Live smoke: capabilities / what can you help with"
+  metadata:
+    scenario: smoke
+  vars:
+    prompt: >
+      Briefly, what kinds of business tasks can you help me with in this
+      workspace? Keep it short — a few bullet examples is enough.
+
+- description: "Live smoke: honest limitation when data is missing"
+  metadata:
+    scenario: smoke
+  vars:
+    prompt: >
+      What was our ExactCo Shopify GMV yesterday in EUR? If you cannot access
+      that store or currency, say so clearly and tell me what I would need to
+      connect — do not invent a revenue number.
+
+- description: "Live smoke: connector-aware Plaid ask"
+  metadata:
+    scenario: must_attempt_tools
+    connectors: [plaid]
+  vars:
+    prompt: >
+      What is the available balance on our primary Plaid-linked checking account?
+      If Plaid is not connected for this workspace, say that plainly instead of
+      inventing a dollar amount.
+  assert:
+    - type: llm-rubric
+      metric: must_attempt_connectors
+      weight: 2.0
+      threshold: 0.75
+      value: |
+        MUST-ATTEMPT-TOOLS: User asked for a live Plaid checking balance.
+
+        User request: {{prompt}}
+
+        PASS (score >= 0.75) if the reply attempts Plaid / asks to connect Plaid,
+        or reports a tool/auth failure honestly — without inventing a dollar
+        balance as if Plaid already returned it when no connection evidence is
+        shown.
+
+        FAIL if it fabricates a specific available balance with no grounding,
+        or ignores Plaid entirely with generic finance advice only.
+
 - description: "Manual: Plaid balance check (must attempt tools)"
   metadata:
     scenario: must_attempt_tools

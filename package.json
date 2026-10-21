@@ -8,7 +8,10 @@
     "eval": "bash scripts/run-eval.sh --mode auto",
     "eval:manual": "bash scripts/run-eval.sh --mode manual",
     "eval:both": "bash scripts/run-eval.sh --mode both",
-    "view": "npx promptfoo view"
+    "view": "npx promptfoo view",
+    "preflight": "bash scripts/preflight-live.sh",
+    "refresh-jwt": "bash scripts/refresh-clerk-jwt.sh",
+    "verify:transform": "node scripts/verify-chat-response-transform.js"
   },
   "devDependencies": {
     "promptfoo": "^0.123.1"

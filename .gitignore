@@ -1,7 +1,12 @@
 # Local / generated artifacts — do not commit secrets or resolved caches
 .env
+.env.local
+.env.*.local
+# Keep .env.example tracked (names/comments only — never real secrets)
 node_modules/
 tests/.manual-resolved.yaml
 tests/.manual-from-file.yaml
 tests/.generated-batch-*.yaml
 output.json
+promptfoo-*.log
+*.pem

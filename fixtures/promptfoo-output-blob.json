@@ -1,0 +1,14 @@
+{
+  "description": "Exact Promptfoo Output shape from eval_results when transform returned context.response (stringified). Used by verify-chat-response-transform.js.",
+  "blob": {
+    "data": "{\"result\":{\"output\":\"Plaid is connected for this workspace. Your primary checking account is **TOTAL CHECKING** (Chase, mask 7070), and its current available balance is **$2,085.29** (as of Oct 16, 2026 at 10:07 PM UTC).\\n\\nThis is part of your broader operating cash total of **$2,267.06** across all linked accounts.\\n\\n**Month-over-month change:** −$73.85 (down from the previous month).\",\"model\":\"haiku\",\"modelId\":\"claude-haiku-4-5-20251001\",\"inputTokens\":3197,\"outputTokens\":249,\"estimatedCostUsd\":0.0004193,\"escalated\":false,\"toolsUsed\":[{\"name\":\"get_bank_balances\",\"ok\":true}]}}",
+    "status": 200,
+    "statusText": "OK",
+    "headers": {
+      "content-type": "application/json; charset=utf-8"
+    },
+    "cached": true,
+    "latencyMs": 149463
+  },
+  "expectedPrefix": "Plaid is connected for this workspace."
+}

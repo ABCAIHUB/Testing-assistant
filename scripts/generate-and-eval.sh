@@ -13,6 +13,7 @@ if [[ -f .env ]]; then
   set +a
 fi
 normalize_anthropic_api_key
+require_live_chat_auth || exit 1
 
 parse_eval_args "$@"
 parse_status=$?
@@ -24,13 +25,16 @@ if [[ $parse_status -ne 0 ]]; then
 fi
 
 MODE="$(resolve_prompt_mode "$PROMPT_MODE")" || exit 1
+CHAT_URL="$(resolve_chat_url)"
 
 # generate-and-eval always needs generation unless mode is manual-only
 if [[ "$MODE" == "manual" ]]; then
   echo "==> Mode=manual — skipping AI generation; running manual prompts only."
+  echo "==> Live UI reference: https://www.meztli.ai/assistant"
   prepare_manual_if_needed "$MODE" || exit 1
   build_eval_config promptfooconfig.eval.yaml "$MODE" tests/generated.yaml "$RESOLVED_MANUAL_FILE"
-  echo "==> Running evaluation against http://localhost:4000/api/chat ..."
+  probe_live_chat_or_die || exit 1
+  echo "==> Running evaluation against ${CHAT_URL} ..."
   "$PROMPTFOO_BIN" eval -c promptfooconfig.eval.yaml --output output.json
   echo "==> Done. View results: npm run view"
   exit 0
@@ -54,7 +58,9 @@ echo "Wrote $GEN_COUNT new tests to tests/generated.yaml"
 
 build_eval_config promptfooconfig.eval.yaml "$MODE" tests/generated.yaml "$RESOLVED_MANUAL_FILE"
 
-echo "==> Running evaluation against http://localhost:4000/api/chat ..."
+echo "==> Live UI reference: https://www.meztli.ai/assistant"
+probe_live_chat_or_die || exit 1
+echo "==> Running evaluation against ${CHAT_URL} ..."
 "$PROMPTFOO_BIN" eval -c promptfooconfig.eval.yaml --output output.json
 
 echo "==> Done. View results: npm run view"
